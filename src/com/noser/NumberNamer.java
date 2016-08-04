@@ -10,18 +10,20 @@ public class NumberNamer {
     ArrayList<String> words;
 
     String printNumberName(int z) {
-        words = new ArrayList<>();
         if (z == 0) {
-            words.add("zero");
-        } else {
-            if (z <= 20) {
-                words.add(getBelowTwenty(z));
-            } else {
-                getHunderter(z);
-                words.add(getZehner(z));
-                words.add(getEiner(z));
-            }
+            return "zero";
         }
+
+        words = new ArrayList<>();
+
+        if (z <= 20) {
+            words.add(getBelowTwenty(z));
+        } else {
+            addHunderter(z);
+            words.add(getZehner(z));
+            words.add(getEiner(z));
+        }
+
 
         words.removeIf(s -> s.equals(""));
         return String.join(" ", words);
@@ -80,15 +82,6 @@ public class NumberNamer {
         return getBelowTwenty(einer);
     }
 
-    public String getHunderter(int z) {
-        int hundred = (z / 100) % 10;
-        words.add(getBelowTwenty(hundred));
-        if (hundred != 0) {
-            words.add("hundred");
-        }
-        return "";
-    }
-
     public String getZehner(int z) {
         int zehner = (z / 10) % 10;
         switch (zehner) {
@@ -99,7 +92,7 @@ public class NumberNamer {
             case 3:
                 return "thirty";
             case 4:
-                return "fourty";
+                return "forty";
             case 5:
                 return "fifty";
             case 6:
@@ -113,4 +106,13 @@ public class NumberNamer {
         }
         return "ERROR ZEHNER";
     }
+
+    public void addHunderter(int z) {
+        int hundred = (z / 100) % 10;
+        words.add(getBelowTwenty(hundred));
+        if (hundred != 0) {
+            words.add("hundred");
+        }
+    }
+
 }
