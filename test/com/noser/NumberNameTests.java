@@ -1,5 +1,6 @@
 package com.noser;
 
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -12,7 +13,12 @@ import static org.junit.Assert.assertThat;
  */
 public class NumberNameTests {
 
-    NumberNamer namer = new NumberNamer();
+    @Before
+    public void init() {
+        namer = new NumberNamer();
+    }
+
+    NumberNamer namer;
 
     @Test
     public void zero() {
@@ -75,4 +81,10 @@ public class NumberNameTests {
         assertThat(s, is("thirty"));
     }
 
+
+    @Test
+    public void onehundredfourtythree() {
+        String s = namer.printNumberName(143);
+        assertThat(s, is("one hundred fourty three"));
+    }
 }

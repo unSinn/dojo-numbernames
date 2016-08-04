@@ -7,15 +7,17 @@ import java.util.ArrayList;
  */
 public class NumberNamer {
 
-    String printNumberName(int z) {
-        ArrayList<String> words = new ArrayList<>();
+    ArrayList<String> words;
 
+    String printNumberName(int z) {
+        words = new ArrayList<>();
         if (z == 0) {
             words.add("zero");
         } else {
             if (z <= 20) {
                 words.add(getBelowTwenty(z));
             } else {
+                getHunderter(z);
                 words.add(getZehner(z));
                 words.add(getEiner(z));
             }
@@ -76,6 +78,15 @@ public class NumberNamer {
     public String getEiner(int z) {
         int einer = z % 10;
         return getBelowTwenty(einer);
+    }
+
+    public String getHunderter(int z) {
+        int hundred = (z / 100) % 10;
+        words.add(getBelowTwenty(hundred));
+        if (hundred != 0) {
+            words.add("hundred");
+        }
+        return "";
     }
 
     public String getZehner(int z) {
